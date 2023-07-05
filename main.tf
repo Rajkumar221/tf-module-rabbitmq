@@ -44,7 +44,7 @@ resource "aws_instance" "rabbitmq" {
  })
     root_block_device = {
         encrypted = true
-        kms_key_id = var.kms_key_id
+        kms_key_id = var.kms_key_arn
 
     }
 }
@@ -53,6 +53,6 @@ resource "aws_route53_record" "rabbitmq" {
   zone_id = var.zone_id
   name    = "$(var.component)-$(var.env)"
   type    = "A"
-  ttl     = 300
+  ttl     = 30
   records = [aws_instance_rabbitmq.private_ip]
 }
